@@ -1,0 +1,1360 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XVI Edição · 2026 — A Sessão do Mundo Real · Prêmio Áurea</title>
+<meta name="description" content="Programa completo da XVI Edição do Prêmio Áurea (2026): indicados e vencedores em 20 categorias, com filmes e artistas reais.">
+<link rel="icon" href="data:,">
+<style>
+/* ============================================================
+   PRÊMIO ÁUREA — sistema de design
+   Paleta: palco escuro + dourado envelhecido + bordô profundo
+   Tipografia: Bodoni Moda (display), Source Serif 4 (corpo),
+               Space Mono (legendas / ingresso)
+   Assinatura: pôsteres geométricos minimalistas (estilo Saul Bass)
+               + cartões de "ingresso" com furos de rolo de filme
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Source+Serif+4:ital,wght@0,300..500;1,300..500&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg: #0b0b0d;
+  --bg-soft: #111013;
+  --card: #17161a;
+  --card-line: #2a2620;
+
+  --gold: #c9a227;
+  --gold-bright: #f0d584;
+  --gold-dim: #8a6f22;
+
+  --burgundy: #5c1a24;
+  --burgundy-bright: #8a2c39;
+
+  --ivory: #f2e9dc;
+  --ivory-dim: #b7ab97;
+  --ivory-faint: #7e7568;
+
+  --display: 'Bodoni Moda', 'Times New Roman', serif;
+  --body: 'Source Serif 4', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+
+  --radius: 2px;
+  --edge: 1px solid var(--card-line);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,162,39,0.09), transparent 60%);
+  color: var(--ivory);
+  font-family: var(--body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+a{ color: inherit; text-decoration: none; }
+:focus-visible{ outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+
+.site-header{
+  position: sticky; top:0; z-index: 40;
+  background: rgba(11,11,13,0.86);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--edge);
+}
+.site-header .wrap{ display:flex; align-items:center; justify-content:space-between; height: 76px; }
+.brand{ display:flex; align-items:center; gap:12px; font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing:.02em; }
+.brand .mark{ width:26px; height:26px; flex:none; }
+.site-nav{ display:flex; gap: clamp(14px,3vw,32px); font-family: var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color: var(--ivory-dim); }
+.site-nav a{ position:relative; padding-bottom:4px; transition: color .2s ease; }
+.site-nav a:hover, .site-nav a[aria-current="page"]{ color: var(--gold-bright); }
+.site-nav a[aria-current="page"]::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px; background: var(--gold-bright);
+}
+
+.site-footer{
+  border-top: var(--edge); margin-top: 96px; padding: 40px 0 56px;
+  color: var(--ivory-faint); font-family: var(--mono); font-size:.72rem; letter-spacing:.06em;
+}
+.site-footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+/* ---------- eyebrow / labels ---------- */
+.eyebrow{
+  font-family: var(--mono); font-size:.72rem; letter-spacing:.28em; text-transform:uppercase;
+  color: var(--gold); display:flex; align-items:center; gap:14px;
+}
+.eyebrow::before{ content:""; width:28px; height:1px; background: var(--gold-dim); }
+
+/* ============================================================
+   HERO / CORTINA (index)
+   ============================================================ */
+.hero{
+  position:relative; min-height: min(88vh, 780px);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  overflow:hidden; border-bottom: var(--edge);
+}
+.curtain{
+  position:absolute; inset:0; z-index:2; display:flex; pointer-events:none;
+}
+.curtain .panel{
+  flex:1; background:
+    repeating-linear-gradient(90deg, #3d0d15 0 18px, #4c111b 18px 36px);
+  box-shadow: inset 0 0 120px rgba(0,0,0,.6);
+  transition: transform 1.4s cubic-bezier(.77,0,.18,1);
+}
+.curtain .panel.left{ transform-origin:left; }
+.curtain .panel.right{ transform-origin:right; }
+.hero.opened .curtain .panel.left{ transform: translateX(-100%); }
+.hero.opened .curtain .panel.right{ transform: translateX(100%); }
+
+.hero-content{ position:relative; z-index:1; padding: 40px 20px; }
+.hero-eyebrow{
+  font-family: var(--mono); font-size:.78rem; letter-spacing:.4em; text-transform:uppercase;
+  color: var(--gold-bright); margin-bottom: 22px; opacity:0; animation: rise .9s ease forwards 1.3s;
+}
+.hero h1{
+  font-family: var(--display); font-weight: 800; font-style:italic;
+  font-size: clamp(3rem, 9vw, 6.4rem); line-height: .96; margin: 0 0 20px;
+  background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 55%, var(--gold-dim) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter: drop-shadow(0 2px 18px rgba(201,162,39,.25));
+  opacity:0; animation: rise 1s ease forwards 1.5s;
+}
+.hero p.lede{
+  font-family: var(--body); font-style:italic; color: var(--ivory-dim);
+  max-width: 46ch; margin: 0 auto; font-size: 1.05rem;
+  opacity:0; animation: rise .9s ease forwards 1.7s;
+}
+@keyframes rise{ from{ opacity:0; transform: translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+/* ---------- edições (tickets na home) ---------- */
+.editions{ padding: 88px 0 40px; }
+.section-title{ display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:40px; flex-wrap:wrap; }
+.section-title h2{ font-family: var(--display); font-style:italic; font-weight:700; font-size: clamp(1.8rem,3.4vw,2.6rem); margin:6px 0 0; }
+
+.edition-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:28px; }
+
+.ticket{
+  position:relative; background: var(--card); border: var(--edge); border-radius: var(--radius);
+  padding: 30px 26px 26px; transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+  display:flex; flex-direction:column; gap:14px; min-height: 220px;
+}
+.ticket::before, .ticket::after{
+  content:""; position:absolute; width:16px; height:16px; background: var(--bg); border-radius:50%;
+  top:50%; transform: translateY(-50%);
+}
+.ticket::before{ left:-8px; } .ticket::after{ right:-8px; }
+.ticket:hover{ transform: translateY(-4px); border-color: var(--gold-dim); box-shadow: 0 18px 40px -20px rgba(201,162,39,.35); }
+.ticket .roman{ font-family:var(--display); font-style:italic; font-weight:700; font-size:2.6rem; color: var(--gold); line-height:1; }
+.ticket h3{ font-family: var(--display); font-weight:700; font-size:1.5rem; margin:0; }
+.ticket .meta{ font-family: var(--mono); font-size:.72rem; letter-spacing:.14em; color: var(--ivory-faint); text-transform:uppercase; }
+.ticket p{ color: var(--ivory-dim); font-size:.92rem; margin:0; flex:1; }
+.ticket .go{ font-family: var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color: var(--gold-bright); display:flex; align-items:center; gap:8px; }
+.ticket .go svg{ width:14px; height:14px; transition: transform .25s ease; }
+.ticket:hover .go svg{ transform: translateX(4px); }
+.perf{ border-top: 1px dashed var(--card-line); margin: 2px 0; }
+
+/* ============================================================
+   PÁGINA DE EDIÇÃO
+   ============================================================ */
+.edition-hero{ padding: 64px 0 30px; border-bottom: var(--edge); }
+.edition-hero h1{ font-family: var(--display); font-style:italic; font-weight:800; font-size: clamp(2.2rem,6vw,3.6rem); margin: 14px 0 12px; }
+.edition-hero .sub{ color: var(--ivory-dim); max-width: 60ch; font-size:1.02rem; }
+.edition-hero .stat-row{ display:flex; gap: clamp(20px,4vw,48px); margin-top:28px; flex-wrap:wrap; }
+.stat{ font-family: var(--mono); }
+.stat .n{ display:block; font-family:var(--display); font-style:italic; font-size:1.9rem; color: var(--gold-bright); }
+.stat .l{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color: var(--ivory-faint); }
+
+/* programa / ato */
+.act{ padding: 70px 0; border-bottom: var(--edge); }
+.act:last-of-type{ border-bottom:none; }
+.act-head{ display:flex; align-items:flex-end; gap: 22px; margin-bottom: 36px; }
+.act-num{ font-family: var(--display); font-style:italic; font-weight:800; font-size: clamp(2.6rem,6vw,4rem); color: var(--burgundy-bright); line-height:.85; }
+.act-head h2{ font-family: var(--display); font-weight:700; font-size: clamp(1.5rem,3vw,2.1rem); margin:0 0 6px; }
+.act-head .cat-tag{ font-family: var(--mono); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color: var(--ivory-faint); }
+
+.nominee-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 26px; }
+
+.card{
+  position:relative; background: var(--card); border: var(--edge); border-radius: var(--radius);
+  overflow:hidden; transition: transform .35s ease, border-color .35s ease;
+}
+.card:hover{ transform: translateY(-5px); border-color: var(--gold-dim); }
+.card .poster{ aspect-ratio: 2/3; width:100%; display:block; background: var(--bg-soft); }
+.card .sprockets{ display:flex; justify-content:space-between; padding: 0 10px; margin-top:-1px; }
+.card .sprockets span{ width:7px; height:7px; border-radius:50%; background: var(--bg); margin-top:-4px; }
+.card .body{ padding: 16px 16px 18px; }
+.card .film{ font-family: var(--mono); font-size:.66rem; letter-spacing:.08em; color: var(--gold-dim); text-transform:uppercase; margin-bottom:6px; }
+.card h3{ font-family: var(--display); font-weight:700; font-style:italic; font-size:1.18rem; margin:0 0 2px; }
+.card .role{ color: var(--ivory-faint); font-size:.82rem; font-style:italic; }
+
+.card.winner{ border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 20px 45px -22px rgba(201,162,39,.4); }
+.card.winner:hover{ transform: translateY(-7px); }
+.seal{
+  position:absolute; top:14px; right:-34px; z-index:3;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim));
+  color:#1a1305; font-family: var(--mono); font-weight:700; font-size:.62rem; letter-spacing:.14em;
+  padding: 5px 40px; transform: rotate(38deg); box-shadow: 0 4px 10px rgba(0,0,0,.4);
+}
+
+/* legenda de gênero embaixo do pôster, útil de leitura */
+.card .genre-tag{
+  position:absolute; left:10px; bottom:10px; z-index:2;
+  font-family: var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+  color: var(--ivory); background: rgba(11,11,13,.55); padding: 3px 7px; border: 1px solid rgba(242,233,220,.25);
+}
+
+/* ---------- vencedores em destaque (resumo no topo da edição) ---------- */
+.winners-strip{ padding: 52px 0; background: var(--bg-soft); border-bottom: var(--edge); }
+.winners-scroll{ display:grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap:18px; }
+.wcard{ display:flex; gap:14px; align-items:center; background: var(--card); border: var(--edge); padding: 12px; border-radius: var(--radius); }
+.wcard .thumb{ width:52px; height:52px; flex:none; border-radius:50%; overflow:hidden; border: 1px solid var(--gold-dim); }
+.wcard .cat{ font-family: var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color: var(--gold-dim); }
+.wcard .name{ font-family: var(--display); font-style:italic; font-weight:700; font-size:.98rem; }
+
+/* responsivo */
+@media (max-width: 640px){
+  .site-nav{ gap:14px; }
+  .act-head{ align-items:flex-start; flex-direction:column; gap:6px; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" stroke="#c9a227" stroke-width="1.4"/>
+        <circle cx="12" cy="12" r="4" fill="#c9a227"/>
+      </svg>
+      Prêmio Áurea
+    </a>
+    <nav class="site-nav" aria-label="Edições">
+      <a href="edicao-1.html">XIII · 2023</a>
+      <a href="edicao-2.html">XIV · 2024</a>
+      <a href="edicao-3.html">XV · 2025</a>
+      <a href="edicao-4.html" aria-current="page">XVI · 2026</a>
+    </nav>
+  </div>
+</header>
+
+<section class="edition-hero">
+  <div class="wrap">
+    <div class="eyebrow">xvi edição · 2026</div>
+    <h1>A Sessão do Mundo Real</h1>
+    <p class="sub">Pela primeira vez, o Áurea sai da ficção: os 30 filmes, diretores, atrizes e atores desta edição existem de verdade. A cerimônia continua imaginária — o cinema que ela celebra, não.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="n">20</span><span class="l">categorias</span></div>
+      <div class="stat"><span class="n">120</span><span class="l">indicações</span></div>
+      <div class="stat"><span class="n">30</span><span class="l">filmes na disputa</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="winners-strip">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:22px;">os vencedores da noite</div>
+    <div class="winners-scroll">
+      <div class="wcard"><div class="thumb" data-poster="Ainda Estou Aqui" data-genre="drama"></div><div><div class="cat">Melhor Filme</div><div class="name">Ainda Estou Aqui</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="O Agente Secreto" data-genre="thriller"></div><div><div class="cat">Melhor Direção</div><div class="name">Kleber Mendonça Filho</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Ainda Estou Aqui" data-genre="drama"></div><div><div class="cat">Melhor Roteiro Adaptado</div><div class="name">Ainda Estou Aqui</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Sinners" data-genre="thriller"></div><div><div class="cat">Melhor Roteiro Original</div><div class="name">Sinners</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Homem Com H" data-genre="drama"></div><div><div class="cat">Melhor Ator</div><div class="name">Jesuíta Barbosa</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Ainda Estou Aqui" data-genre="drama"></div><div><div class="cat">Melhor Atriz</div><div class="name">Fernanda Torres</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Gladiator II" data-genre="guerra"></div><div><div class="cat">Melhor Ator Coadjuvante</div><div class="name">Denzel Washington</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="O Agente Secreto" data-genre="thriller"></div><div><div class="cat">Melhor Atriz Coadjuvante</div><div class="name">Tânia Maria</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="O Agente Secreto" data-genre="thriller"></div><div><div class="cat">Melhor Elenco</div><div class="name">O Agente Secreto</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="O Agente Secreto" data-genre="thriller"></div><div><div class="cat">Melhor Fotografia</div><div class="name">O Agente Secreto</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Frankenstein" data-genre="thriller"></div><div><div class="cat">Melhor Figurino</div><div class="name">Frankenstein</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="One Battle After Another" data-genre="drama"></div><div><div class="cat">Melhor Montagem</div><div class="name">One Battle After Another</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Frankenstein" data-genre="thriller"></div><div><div class="cat">Melhor Maquiagem e Cabelo</div><div class="name">Frankenstein</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Sinners" data-genre="thriller"></div><div><div class="cat">Melhor Trilha Sonora Original</div><div class="name">Sinners</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Sinners" data-genre="thriller"></div><div><div class="cat">Melhor Canção Original</div><div class="name">&quot;I Lied To You&quot;</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Frankenstein" data-genre="thriller"></div><div><div class="cat">Melhor Direção de Arte</div><div class="name">Frankenstein</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Sinners" data-genre="thriller"></div><div><div class="cat">Melhor Som</div><div class="name">Sinners</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Frankenstein" data-genre="thriller"></div><div><div class="cat">Melhores Efeitos Visuais</div><div class="name">Frankenstein</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="Tár" data-genre="drama"></div><div><div class="cat">Melhor Filme Retrospectivo</div><div class="name">Tár</div></div></div>
+      <div class="wcard"><div class="thumb" data-poster="A Hora da Estrela" data-genre="social"></div><div><div class="cat">Melhor Atuação em Filme Retrospectivo</div><div class="name">Marcélia Cartaxo</div></div></div>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">01</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Filme</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Ainda Estou Aqui</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>O Agente Secreto</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Indicado</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">02</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Direção</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">O Agente Secreto</div><h3>Kleber Mendonça Filho</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Queer</div><h3>Luca Guadagnino</h3><div class="role">Romance</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Frankenstein</div><h3>Guillermo Del Toro</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">One Battle After Another</div><h3>Paul Thomas Anderson</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>Ryan Coogler</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Ainda Estou Aqui</div><h3>Walter Salles</h3><div class="role">Drama</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">03</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Roteiro Adaptado</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Ainda Estou Aqui</h3><div class="role">Murilo Hauser, Heitor Lorega</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Peter Straughan</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Guillermo Del Toro</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Homem Com H" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Homem Com H</h3><div class="role">Esmir Filho</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Paul Thomas Anderson</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="The Ugly Stepsister" data-genre="fantasia"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">fantasia</div><h3>The Ugly Stepsister</h3><div class="role">Emilie Blichfeldt</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">04</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Roteiro Original</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Ryan Coogler</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Anora" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Anora</h3><div class="role">Sean Baker</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Babygirl" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">romance</div><h3>Babygirl</h3><div class="role">Halina Reijn</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Bring Her Back" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Bring Her Back</h3><div class="role">Danny Philippou, Bill Hinzman</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>O Agente Secreto</h3><div class="role">Kleber Mendonça Filho</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Weapons" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Weapons</h3><div class="role">Zach Cregger</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">05</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Ator</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Homem Com H" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Homem Com H</div><h3>Jesuíta Barbosa</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sing Sing" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sing Sing</div><h3>Colman Domingo</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Queer</div><h3>Daniel Craig</h3><div class="role">Romance</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>Michael B. Jordan</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Conclave</div><h3>Ralph Fiennes</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">O Agente Secreto</div><h3>Wagner Moura</h3><div class="role">Suspense / terror</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">06</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Atriz</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Ainda Estou Aqui</div><h3>Fernanda Torres</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Vitória" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Vitória</div><h3>Fernanda Montenegro</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="La Virgen Roja" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">La Virgen Roja</div><h3>Najwa Nimri</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Smile 2" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Smile 2</div><h3>Naomi Scott</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Babygirl" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Babygirl</div><h3>Nicole Kidman</h3><div class="role">Romance</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Bring Her Back" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Bring Her Back</div><h3>Sally Hawkins</h3><div class="role">Suspense / terror</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">07</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Ator Coadjuvante</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Gladiator II</div><h3>Denzel Washington</h3><div class="role">Épico histórico</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">One Battle After Another</div><h3>Benício Del Toro</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sing Sing" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sing Sing</div><h3>Clarence Maclin</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>Miles Caton</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">O Agente Secreto</div><h3>Robério Diógenes</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Ainda Estou Aqui</div><h3>Selton Mello</h3><div class="role">Drama</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">08</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Atriz Coadjuvante</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">O Agente Secreto</div><h3>Tânia Maria</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Weapons" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Weapons</div><h3>Amy Madigan</h3><div class="role">Suspense / terror</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Nickel Boys" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Nickel Boys</div><h3>Aunjanue Ellis-Taylor</h3><div class="role">Drama social</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Queer</div><h3>Lesley Manville</h3><div class="role">Romance</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">One Battle After Another</div><h3>Teyana Taylor</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>Wunmi Mosaku</h3><div class="role">Suspense / terror</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">09</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Elenco</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>O Agente Secreto</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Ainda Estou Aqui</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sing Sing" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Sing Sing</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Indicado</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">10</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Fotografia</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="O Agente Secreto" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>O Agente Secreto</h3><div class="role">Evgenia Alexandrova</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Stéphane Fontaine</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Nickel Boys" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama social</div><h3>Nickel Boys</h3><div class="role">Jomo Fray</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Michael Bauman</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">romance</div><h3>Queer</h3><div class="role">Sayombhu Mukdeeprom</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Autumn Durald Arkapaw</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">11</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Figurino</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Kate Hawley</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Lisy Christl</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator II</h3><div class="role">Janty Yates, Dave Crossman</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Homem Com H" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Homem Com H</h3><div class="role">Gabriella Marra</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Ruth E. Carter</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Wicked: For Good" data-genre="musical"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">musical</div><h3>Wicked: For Good</h3><div class="role">Paul Tazewell</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">12</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Montagem</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Thelma Schoonmaker</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Ainda Estou Aqui" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Ainda Estou Aqui</h3><div class="role">Affonso Gonçalves</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Nick Emerson</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Homem Com H" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Homem Com H</h3><div class="role">Germano de Oliveira</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Nickel Boys" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama social</div><h3>Nickel Boys</h3><div class="role">Nicholas Monsour</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Michael P. Shawver</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">13</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Maquiagem e Cabelo</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator II</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Homem Com H" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Homem Com H</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="The Ugly Stepsister" data-genre="fantasia"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">fantasia</div><h3>The Ugly Stepsister</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Wicked: For Good" data-genre="musical"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">musical</div><h3>Wicked: For Good</h3><div class="role">Indicado</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">14</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Trilha Sonora Original</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Ludwig Göransson</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Volker Bertelmann</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Alexandre Desplat</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Jonny Greenwood</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Mickey 17" data-genre="ficcao"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">ficção científica</div><h3>Mickey 17</h3><div class="role">Jung Jae-il</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">romance</div><h3>Queer</h3><div class="role">Trent Reznor &amp; Atticus Ross</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">15</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Canção Original</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>&quot;I Lied To You&quot;</h3><div class="role">Raphael Saadiq, Ludwig Göransson</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Smile 2" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Smile 2</div><h3>&quot;Just My Name&quot;</h3><div class="role">Naomi Scott, Alexis Kesselman</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="La Virgen Roja" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">La Virgen Roja</div><h3>&quot;La Virgen Roja&quot;</h3><div class="role">Maria Arnal</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>&quot;Last Time (I See The Sun)&quot;</h3><div class="role">Alice Smith, Ludwig Göransson, Miles Caton</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Wicked: For Good" data-genre="musical"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Wicked: For Good</div><h3>&quot;No Place Like Home&quot;</h3><div class="role">Stephen Schwartz</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Sinners</div><h3>&quot;Pale, Pale Moon&quot;</h3><div class="role">Brittany Howard, Ludwig Göransson</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">16</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Direção de Arte</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Tamara Deverell, Shane Vieau</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Conclave" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Conclave</h3><div class="role">Suzie Davies, Cynthia Sleiter</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator II</h3><div class="role">Arthur Max, Jille Azis, Elli Griff</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Mickey 17" data-genre="ficcao"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">ficção científica</div><h3>Mickey 17</h3><div class="role">Fiona Crombie, Alice Felton</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Queer" data-genre="romance"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">romance</div><h3>Queer</h3><div class="role">Stefano Baisi, Lisa Scoppa</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Wicked: For Good" data-genre="musical"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">musical</div><h3>Wicked: For Good</h3><div class="role">Nathan Crowley, Lee Sandales</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">17</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Som</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Civil War" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Civil War</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator II</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Mickey 17" data-genre="ficcao"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">ficção científica</div><h3>Mickey 17</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="One Battle After Another" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>One Battle After Another</h3><div class="role">Indicado</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">18</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhores Efeitos Visuais</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Frankenstein" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Frankenstein</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Final Destination: Bloodlines" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Final Destination: Bloodlines</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator II" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator II</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Mickey 17" data-genre="ficcao"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">ficção científica</div><h3>Mickey 17</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Sinners" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Sinners</h3><div class="role">Indicado</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Smile 2" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Smile 2</h3><div class="role">Indicado</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">19</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Filme Retrospectivo</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="Tár" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama</div><h3>Tár</h3><div class="role">Todd Field</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="A Hora da Estrela" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama social</div><h3>A Hora da Estrela</h3><div class="role">Suzana Amaral</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">épico histórico</div><h3>Gladiator</h3><div class="role">Ridley Scott</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="In The Mouth of Madness" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>In The Mouth of Madness</h3><div class="role">John Carpenter</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Triangle of Sadness" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">drama social</div><h3>Triangle of Sadness</h3><div class="role">Ruben Östlund</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Videodrome" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">suspense / terror</div><h3>Videodrome</h3><div class="role">David Cronenberg</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="act">
+    <div class="wrap">
+      <div class="act-head">
+        <span class="act-num">20</span>
+        <div><div class="cat-tag">categoria</div><h2>Melhor Atuação em Filme Retrospectivo</h2></div>
+      </div>
+      <div class="nominee-grid">
+        <article class="card winner">
+          <span class="seal">Vencedor</span>
+          <div class="poster" data-poster="A Hora da Estrela" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">A Hora da Estrela</div><h3>Marcélia Cartaxo</h3><div class="role">Drama social</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Tár" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Tár</div><h3>Cate Blanchett</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Triangle of Sadness" data-genre="social"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Triangle of Sadness</div><h3>Dolly de Leon</h3><div class="role">Drama social</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Gladiator" data-genre="guerra"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Gladiator</div><h3>Joaquin Phoenix</h3><div class="role">Épico histórico</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="Swan Song" data-genre="drama"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">Swan Song</div><h3>Mahershala Ali</h3><div class="role">Drama</div></div>
+        </article>
+        <article class="card">
+          
+          <div class="poster" data-poster="In The Mouth of Madness" data-genre="thriller"></div>
+          <div class="sprockets"></div>
+          <div class="body"><div class="film">In The Mouth of Madness</div><h3>Sam Neill</h3><div class="role">Suspense / terror</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>Prêmio Áurea — XVI Edição, 2026.</span>
+    <span><a href="index.html">← voltar ao início</a></span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   PRÊMIO ÁUREA — utilitários compartilhados
+   - gerador de "cartaz" SVG minimalista por indicado (sem fotos
+     reais: cada filme/indicado é fictício, então a identidade
+     visual é construída com formas geométricas + tipografia,
+     no espírito dos cartazes de Saul Bass)
+   - abertura de cortina no herói da home
+   - furos de rolo de filme nos cartões
+   ============================================================ */
+
+const PALETTES = [
+  { bg: "#1c1710", shape: "#c9a227", tint: "#f0d584" },
+  { bg: "#2a0e14", shape: "#f2e9dc", tint: "#8a2c39" },
+  { bg: "#121014", shape: "#8a2c39", tint: "#c9a227" },
+  { bg: "#1a1512", shape: "#f0d584", tint: "#5c1a24" },
+  { bg: "#150f10", shape: "#b7ab97", tint: "#c9a227" },
+];
+
+function hashStr(s){
+  let h = 0;
+  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
+  return h;
+}
+
+/* cada motivo geométrico corresponde a um gênero fictício —
+   a forma comunica o clima do filme, não é decoração à toa */
+const MOTIFS = {
+  drama: (c) => `
+    <circle cx="120" cy="150" r="86" fill="none" stroke="${c.shape}" stroke-width="3" opacity=".9"/>
+    <circle cx="150" cy="190" r="52" fill="${c.shape}" opacity=".85"/>`,
+  thriller: (c) => `
+    <polygon points="30,260 120,60 145,260" fill="${c.shape}" opacity=".9"/>
+    <polygon points="90,260 150,120 210,260" fill="${c.tint}" opacity=".55"/>`,
+  ficcao: (c) => `
+    <circle cx="120" cy="150" r="96" fill="none" stroke="${c.shape}" stroke-width="2"/>
+    <circle cx="120" cy="150" r="62" fill="none" stroke="${c.shape}" stroke-width="2"/>
+    <circle cx="120" cy="150" r="8" fill="${c.tint}"/>`,
+  guerra: (c) => `
+    <rect x="20" y="60" width="14" height="220" fill="${c.shape}"/>
+    <rect x="60" y="90" width="14" height="190" fill="${c.tint}" opacity=".8"/>
+    <rect x="100" y="40" width="14" height="240" fill="${c.shape}"/>
+    <rect x="140" y="110" width="14" height="170" fill="${c.tint}" opacity=".8"/>
+    <rect x="180" y="70" width="14" height="210" fill="${c.shape}"/>`,
+  musical: (c) => `
+    <g stroke="${c.shape}" stroke-width="3">
+      ${Array.from({length:12}).map((_,i)=>{
+        const a = (i/12)*Math.PI*2;
+        const x2 = 120 + Math.cos(a)*100, y2 = 150 + Math.sin(a)*100;
+        return `<line x1="120" y1="150" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" opacity="${0.4+ (i%3)*0.2}"/>`;
+      }).join("")}
+    </g>
+    <circle cx="120" cy="150" r="30" fill="${c.tint}"/>`,
+  fantasia: (c) => `
+    <path d="M170,60 A95,95 0 1 0 170,260 A75,75 0 1 1 170,60 Z" fill="${c.shape}" opacity=".9"/>
+    <circle cx="70" cy="90" r="5" fill="${c.tint}"/>
+    <circle cx="50" cy="140" r="3" fill="${c.tint}"/>`,
+  romance: (c) => `
+    <circle cx="95" cy="150" r="78" fill="none" stroke="${c.shape}" stroke-width="3"/>
+    <circle cx="145" cy="150" r="78" fill="none" stroke="${c.tint}" stroke-width="3"/>`,
+  social: (c) => `
+    <rect x="30" y="170" width="26" height="110" fill="${c.shape}"/>
+    <rect x="66" y="120" width="26" height="160" fill="${c.tint}" opacity=".85"/>
+    <rect x="102" y="150" width="26" height="130" fill="${c.shape}"/>
+    <rect x="138" y="80" width="26" height="200" fill="${c.tint}" opacity=".85"/>
+    <rect x="174" y="130" width="26" height="150" fill="${c.shape}"/>`,
+};
+
+function posterSVG(title, genre, seedKey){
+  const idx = hashStr(seedKey) % PALETTES.length;
+  const c = PALETTES[idx];
+  const motif = (MOTIFS[genre] || MOTIFS.drama)(c);
+  const initial = (title || "?").trim().charAt(0).toUpperCase();
+  return `
+  <svg viewBox="0 0 240 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartaz ilustrativo de ${title}">
+    <rect x="0" y="0" width="240" height="360" fill="${c.bg}"/>
+    <text x="120" y="235" text-anchor="middle" font-family="'Bodoni Moda', serif" font-style="italic" font-weight="800" font-size="200" fill="${c.shape}" opacity="0.10">${initial}</text>
+    ${motif}
+    <rect x="8" y="8" width="224" height="344" fill="none" stroke="${c.tint}" stroke-width="1" opacity=".5"/>
+  </svg>`;
+}
+
+/* aplica o pôster gerado a todo elemento [data-poster] da página */
+function mountPosters(root=document){
+  root.querySelectorAll("[data-poster]").forEach(el=>{
+    const title = el.dataset.poster;
+    const genre = el.dataset.genre || "drama";
+    el.innerHTML = posterSVG(title, genre, title+genre);
+  });
+}
+
+/* pequenos furos de rolo de filme sob o pôster, puramente decorativo */
+function mountSprockets(root=document){
+  root.querySelectorAll(".sprockets").forEach(row=>{
+    row.innerHTML = Array.from({length:9}).map(()=>"<span></span>").join("");
+  });
+}
+
+/* abre a cortina do herói pouco depois do carregamento */
+function openCurtain(){
+  const hero = document.querySelector(".hero");
+  if(!hero) return;
+  requestAnimationFrame(()=> setTimeout(()=> hero.classList.add("opened"), 260));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  mountPosters();
+  mountSprockets();
+  openCurtain();
+});
+
+</script>
+</body>
+</html>
